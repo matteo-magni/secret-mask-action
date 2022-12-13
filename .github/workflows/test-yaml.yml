@@ -1,0 +1,49 @@
+name: Test YAML secret
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}-yaml
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  test-yaml:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+
+      - name: Print secret
+        run: |
+          echo "${SECRET}"
+        env:
+          SECRET: ${{ secrets.FAKE_SECRET_YAML }}
+
+      - name: Print secret substrings
+        run: |
+          echo an-instance-name
+          echo namespace: a-namespace
+          echo subnet-group: a-group
+          echo vpc-0123456789
+
+      - name: Invoke mask action
+        uses: ./
+        with:
+          secret: ${{ secrets.FAKE_SECRET_YAML }}
+      
+      - name: Print secret substrings.. again
+        run: |
+          echo an-instance-name
+          echo namespace: a-namespace
+          echo subnet-group: a-group
+          echo vpc-0123456789
