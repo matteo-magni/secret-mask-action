@@ -21,6 +21,8 @@ jobs:
 
     steps:
 
+      - uses: actions/checkout@v3
+
       - name: Print secret
         run: |
           echo "${SECRET}"
@@ -35,7 +37,7 @@ jobs:
           echo vpc-0123456789
 
       - name: Invoke mask action
-        uses: matteo-magni/secret-mask-action@develop
+        uses: ./
         with:
           secret: ${{ secrets.FAKE_SECRET_JSON }}
 
@@ -50,6 +52,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+
+      - uses: actions/checkout@v3
 
       - name: Print secret
         run: |
