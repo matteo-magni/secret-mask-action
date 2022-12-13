@@ -1,0 +1,19 @@
+name: Secret Mask Action
+description: Dynamically add masks for values pulled from a GitHub secret in different formats, to prevent them from being leaked in logs. Currently JSON and YAML formats are supported.
+inputs:
+  secret:
+    description: The secret to search for the values to be masked.
+    required: true
+runs:
+  using: "composite"
+  steps:
+    
+    - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+      shell: bash
+
+    - name: Mask values
+      shell: bash
+      env:
+        SECRET: ${{ inputs.secret }}
+      run: |
+        mask.sh <<<${SECRET}

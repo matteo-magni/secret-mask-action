@@ -1,0 +1,78 @@
+name: Action test workflow
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  push:
+    branches:
+      - develop
+      - main
+  
+  pull_request:
+    branches:
+      - main
+
+jobs:
+
+  test-json:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Print secret
+        run: |
+          echo "${SECRET}"
+        env:
+          SECRET: ${{ secrets.FAKE_SECRET_JSON }}
+
+      - name: Print secret substrings
+        run: |
+          echo an-instance-name
+          echo a-namespace
+          echo a-group
+          echo vpc-0123456789
+
+      - name: Invoke mask action
+        uses: matteo-magni/secret-mask-action@develop
+        with:
+          secret: ${{ secrets.FAKE_SECRET_JSON }}
+
+      - name: Print secret substrings
+        run: |
+          echo an-instance-name
+          echo a-namespace
+          echo a-group
+          echo vpc-0123456789
+
+  test-yaml:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Print secret
+        run: |
+          echo "${SECRET}"
+        env:
+          SECRET: ${{ secrets.FAKE_SECRET_YAML }}
+
+      - name: Print secret substrings
+        run: |
+          echo an-instance-name
+          echo a-namespace
+          echo a-group
+          echo vpc-0123456789
+
+      - name: Invoke mask action
+        uses: matteo-magni/secret-mask-action@develop
+        with:
+          secret: ${{ secrets.FAKE_SECRET_YAML }}
+      
+      - name: Print secret substrings
+        run: |
+          echo an-instance-name
+          echo a-namespace
+          echo a-group
+          echo vpc-0123456789
+
