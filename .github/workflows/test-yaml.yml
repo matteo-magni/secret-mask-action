@@ -29,17 +29,17 @@ jobs:
 
       - name: Print secret substrings
         run: |
-          echo an-instance-name
-          echo namespace: a-namespace
-          echo subnet-group: a-group
-          echo vpc-0123456789
+          echo "an-instance-name"
+          echo "namespace: a-namespace"
+          echo "subnet-group: a-group"
+          echo "vpc-0123456789"
 
       - name: Print base64-encoded secret substrings
         run: |
-          base64 <<< an-instance-name
-          base64 <<< namespace: a-namespace
-          base64 <<< subnet-group: a-group
-          base64 <<< vpc-0123456789
+          base64 <<< "an-instance-name"
+          base64 <<< "namespace: a-namespace"
+          base64 <<< "subnet-group: a-group"
+          base64 <<< "vpc-0123456789"
 
   masked:
     runs-on: ubuntu-latest
@@ -61,15 +61,15 @@ jobs:
 
       - name: Print secret substrings
         run: |
-          echo an-instance-name
-          echo namespace: a-namespace
-          echo subnet-group: a-group
-          echo vpc-0123456789
+          echo "an-instance-name"
+          echo "namespace: a-namespace"
+          echo "subnet-group: a-group"
+          echo "vpc-0123456789"
 
       - name: Print base64-encoded secret substrings
         run: |
-          base64 <<< an-instance-name
-          base64 <<< namespace: a-namespace
-          base64 <<< subnet-group: a-group
-          base64 <<< vpc-0123456789
+          base64 <<< "an-instance-name"
+          base64 <<< "namespace: a-namespace"
+          base64 <<< "subnet-group: a-group"
+          base64 <<< "vpc-0123456789"
 
