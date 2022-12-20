@@ -27,7 +27,7 @@ jobs:
         env:
           SECRET: ${{ secrets.FAKE_SECRET_JSON }}
 
-      - name: Print secret substrings.. again
+      - name: Print secret substrings
         run: |
           echo an-instance-name
           echo namespace: a-namespace
@@ -52,7 +52,7 @@ jobs:
         with:
           secret: ${{ secrets.FAKE_SECRET_JSON }}
 
-      - name: Print secret substrings.. again
+      - name: Print secret substrings
         run: |
           echo an-instance-name
           echo namespace: a-namespace
