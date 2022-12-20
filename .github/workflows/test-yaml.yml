@@ -16,7 +16,25 @@ on:
 
 jobs:
 
-  test-yaml:
+  unmasked:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Print secret
+        run: |
+          echo "${SECRET}"
+        env:
+          SECRET: ${{ secrets.FAKE_SECRET_YAML }}
+
+      - name: Print secret substrings.. again
+        run: |
+          echo an-instance-name
+          echo namespace: a-namespace
+          echo subnet-group: a-group
+          echo vpc-0123456789
+
+  masked:
     runs-on: ubuntu-latest
 
     steps:
@@ -29,18 +47,11 @@ jobs:
         env:
           SECRET: ${{ secrets.FAKE_SECRET_YAML }}
 
-      - name: Print secret substrings
-        run: |
-          echo an-instance-name
-          echo namespace: a-namespace
-          echo subnet-group: a-group
-          echo vpc-0123456789
-
       - name: Invoke mask action
         uses: ./
         with:
           secret: ${{ secrets.FAKE_SECRET_YAML }}
-      
+
       - name: Print secret substrings.. again
         run: |
           echo an-instance-name

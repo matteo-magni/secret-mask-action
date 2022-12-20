@@ -16,7 +16,25 @@ on:
 
 jobs:
 
-  test-json:
+  unmasked:
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Print secret
+        run: |
+          echo "${SECRET}"
+        env:
+          SECRET: ${{ secrets.FAKE_SECRET_JSON }}
+
+      - name: Print secret substrings.. again
+        run: |
+          echo an-instance-name
+          echo namespace: a-namespace
+          echo subnet-group: a-group
+          echo vpc-0123456789
+
+  masked:
     runs-on: ubuntu-latest
 
     steps:
@@ -28,13 +46,6 @@ jobs:
           echo "${SECRET}"
         env:
           SECRET: ${{ secrets.FAKE_SECRET_JSON }}
-
-      - name: Print secret substrings
-        run: |
-          echo an-instance-name
-          echo namespace: a-namespace
-          echo subnet-group: a-group
-          echo vpc-0123456789
 
       - name: Invoke mask action
         uses: ./

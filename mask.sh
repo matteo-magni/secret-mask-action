@@ -15,10 +15,14 @@ function format() {
 
 FORMAT=$(format <<<"$SECRET")
 
+(
 if [ "${FORMAT}" == "JSON" ]; then
-    jq -r '..|select(type == "string")' <<<"$SECRET" | while read L; do echo "::add-mask::$L"; done
-
+    jq
 elif [ "${FORMAT}" == "YAML" ]; then
-    yq -o=json <<<"$SECRET" | jq -r '..|select(type == "string")' | while read L; do echo "::add-mask::$L"; done
-
+    yq -o=json
 fi
+)  <<<"$SECRET" | jq -r '..|select(type == "string")'\
+    | while read L; do
+        echo "::add-mask::$L"
+        echo "::add-mask::$(base64 <<<$L)"
+    done
